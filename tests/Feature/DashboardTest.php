@@ -14,7 +14,7 @@ class DashboardTest extends TestCase
             'auth' => true,
         ]);
 
-        $response = $this->get(route('dashboard'));
+        $response = $this->get(route('dashboard-page'));
 
         $response->assertOk();
     }
@@ -22,8 +22,8 @@ class DashboardTest extends TestCase
     public function testSimpleAuthMiddlewareUnauthorized(): void
     {
 
-        $response = $this->get(route('dashboard'));
+        $response = $this->get(route('dashboard-page'));
 
-        $response->assertUnauthorized();
+        $response->assertRedirect();
     }
 }
