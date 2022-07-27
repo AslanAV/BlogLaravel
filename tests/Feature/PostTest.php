@@ -11,6 +11,12 @@ class PostTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function testPostsPage(): void
+    {
+        $response = $this->get(route('posts-page'));
+
+        $response->assertOk();
+    }
     public function testCreatePostPage(): void
     {
         $this->authorized();

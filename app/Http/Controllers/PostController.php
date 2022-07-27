@@ -4,11 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PostStoreRequest;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class PostController extends Controller
 {
+    public function index()
+    {
+        $posts = DB::table('posts')->paginate();
+
+        return view('home', compact('posts'));
+    }
+
     public function store(PostStoreRequest $request): RedirectResponse
     {
         $id = DB::table('posts')->insertGetId([
