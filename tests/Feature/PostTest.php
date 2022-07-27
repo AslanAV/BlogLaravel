@@ -100,4 +100,24 @@ class PostTest extends TestCase
             ]
         );
     }
+
+    public function testDeletePost(): void
+    {
+        $this->authorized();
+
+        $id = DB::table('posts')->insertGetId([
+            'title' => 'Title',
+            'content' => 'Content',
+        ]);
+
+        $response = $this->delete(route('delete-post',$id));
+
+        $response->assertRedirect();
+
+        $this->assertDatabaseMissing('posts',
+            [
+                'id' => $id,
+            ]
+        );
+    }
 }

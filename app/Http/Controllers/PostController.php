@@ -59,4 +59,17 @@ class PostController extends Controller
 
         return redirect()->route('show-post-page', $id);
     }
+
+    public function delete($id)
+    {
+        $post = DB::table('posts')->find($id);
+
+        if (!$post) {
+            abort(404);
+        }
+
+        Db::table('posts')->where('id', $post->id)->delete();
+
+        return redirect()->route('posts-page', $id);
+    }
 }
