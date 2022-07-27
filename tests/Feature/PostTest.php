@@ -60,4 +60,44 @@ class PostTest extends TestCase
 
         $response->assertNotFound();
     }
+
+    public function testEditPostPage(): void
+    {
+        $this->authorized();
+
+        $id = DB::table('posts')->insertGetId([
+            'title' => 'Title',
+            'content' => 'Content',
+        ]);
+
+        $response = $this->get(route('edit-post-page', $id));
+
+        $response->assertOk();
+    }
+
+    public function testUpdatePage(): void
+    {
+        $this->authorized();
+
+        $id = DB::table('posts')->insertGetId([
+            'title' => 'Title',
+            'content' => 'Content',
+        ]);
+
+        $body = [
+            'title' => 'Another title',
+            'content' => 'Another Content'
+        ];
+
+        $response = $this->post(route('update-post',$id), $body);
+
+        $response->assertRedirect();
+
+        $this->assertDatabaseHas('posts',
+            [
+                'id' => $id,
+                ...$body,
+            ]
+        );
+    }
 }

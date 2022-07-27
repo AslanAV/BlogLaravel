@@ -24,3 +24,11 @@ Route::post('/posts', [PostController::class, 'store'])
 
 Route::get('/posts/{id}', [PostController::class, 'show'])
     ->name('show-post-page');
+
+Route::get('/posts/{id}/edit', [PostController::class, 'edit'])
+    ->name('edit-post-page')
+    ->middleware(SimpleAuth::class);
+
+Route::post('/posts/{id}', [PostController::class, 'update'])
+    ->name('update-post')
+    ->middleware(SimpleAuth::class);
