@@ -27,9 +27,7 @@ class AuthTest extends TestCase
 
     public function testAuthPageWhenAuthorized(): void
     {
-        $this->session([
-            'auth' => true,
-        ]);
+        $this->authorized();
         $response = $this->get(route('auth-page'));
         $response->assertRedirect();
     }

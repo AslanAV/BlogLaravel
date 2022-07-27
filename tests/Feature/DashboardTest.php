@@ -10,9 +10,7 @@ class DashboardTest extends TestCase
 {
     public function testSimpleAuthMiddleware(): void
     {
-        $this->session([
-            'auth' => true,
-        ]);
+        $this->authorized();
 
         $response = $this->get(route('dashboard-page'));
 
