@@ -15,16 +15,16 @@ class PostController extends Controller
         $this->middleware(SimpleAuth::class)->except('index', 'show');
     }
 
+    public function index()
+    {
+        $posts = DB::table('posts')->orderBy('id')->paginate(3);
+
+        return view('posts.index', compact('posts'));
+    }
+
     public function create()
     {
         return view('posts.create');
-    }
-
-    public function index()
-    {
-        $posts = DB::table('posts')->orderBy('id')->paginate();
-
-        return view('posts.index', compact('posts'));
     }
 
     public function store(PostStoreRequest $request): RedirectResponse
@@ -51,6 +51,7 @@ class PostController extends Controller
     public function edit($id)
     {
         $post = DB::table('posts')->find($id);
+
         if (!$post) {
             abort(404);
         }
@@ -66,7 +67,7 @@ class PostController extends Controller
             abort(404);
         }
 
-        Db::table('posts')->where('id', $post->id)->update($request->validated());
+        DB::table('posts')->where('id', $post->id)->update($request->validated());
 
         return redirect()->route('posts.show', $id);
     }
@@ -79,8 +80,8 @@ class PostController extends Controller
             abort(404);
         }
 
-        Db::table('posts')->where('id', $post->id)->delete();
+        DB::table('posts')->where('id', $post->id)->delete();
 
-        return redirect()->route('posts.index', $id);
+        return redirect()->route('posts.index');
     }
 }
