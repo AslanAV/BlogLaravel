@@ -17,7 +17,7 @@ class SimpleAuth
     public function handle(Request $request, Closure $next)
     {
         if (session('auth') !== true) {
-            return redirect()->route('auth-page');
+            return redirect()->route('auth-page', ['to' => $request->getRequestUri()]);
         }
         return $next($request);
     }
