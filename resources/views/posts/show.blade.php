@@ -8,7 +8,7 @@
     <p>
         {{ $post->content }}
     </p>
-    <form class="d-inline" method="POST" action="{{route('delete-post', $post->id)}}">
+    <form class="d-inline" method="POST" action="{{route('posts.destroy', $post->id)}}">
         @method('DELETE')
         @csrf
         <button type="submit" class="btn btn-danger">Delete post</button>

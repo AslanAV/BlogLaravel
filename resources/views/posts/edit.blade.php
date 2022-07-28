@@ -4,7 +4,7 @@
 
 @section('content')
 
-    <form method="post" action="{{ route('update-post', $post->id) }}">
+    <form method="post" action="{{ route('posts.update', $post->id) }}">
         @csrf
         <div class="mb-3">
             <label for="title" class="form-label">title</label>

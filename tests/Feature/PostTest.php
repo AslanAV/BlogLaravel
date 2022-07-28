@@ -13,7 +13,7 @@ class PostTest extends TestCase
 
     public function testPostsPage(): void
     {
-        $response = $this->get(route('posts-page'));
+        $response = $this->get(route('posts.index'));
 
         $response->assertOk();
     }
@@ -21,7 +21,7 @@ class PostTest extends TestCase
     {
         $this->authorized();
 
-        $response = $this->get(route('create-post-page'));
+        $response = $this->get(route('posts.create'));
 
         $response->assertOk();
     }
@@ -34,7 +34,7 @@ class PostTest extends TestCase
             'title' => 'Title',
             'content' => 'Content',
         ];
-        $response = $this->post(route('create-post'), $body);
+        $response = $this->post(route('posts.store'), $body);
 
         $response->assertRedirect();
 
@@ -48,7 +48,7 @@ class PostTest extends TestCase
             'content' => 'Content',
         ]);
 
-        $response = $this->get(route('show-post-page', $id));
+        $response = $this->get(route('posts.show', $id));
 
         $response->assertOk();
     }
@@ -56,7 +56,7 @@ class PostTest extends TestCase
     public function testShowPostPageNotFound(): void
     {
 
-        $response = $this->get(route('show-post-page', 10));
+        $response = $this->get(route('posts.show', 10));
 
         $response->assertNotFound();
     }
@@ -70,12 +70,12 @@ class PostTest extends TestCase
             'content' => 'Content',
         ]);
 
-        $response = $this->get(route('edit-post-page', $id));
+        $response = $this->get(route('posts.edit', $id));
 
         $response->assertOk();
     }
 
-    public function testUpdatePage(): void
+    public function testUpdatePost(): void
     {
         $this->authorized();
 
@@ -89,7 +89,7 @@ class PostTest extends TestCase
             'content' => 'Another Content'
         ];
 
-        $response = $this->post(route('update-post',$id), $body);
+        $response = $this->put(route('posts.update',$id), $body);
 
         $response->assertRedirect();
 
@@ -110,7 +110,7 @@ class PostTest extends TestCase
             'content' => 'Content',
         ]);
 
-        $response = $this->delete(route('delete-post',$id));
+        $response = $this->delete(route('posts.destroy',$id));
 
         $response->assertRedirect();
 
@@ -120,4 +120,12 @@ class PostTest extends TestCase
             ]
         );
     }
+
+    public function testCreatePostUnauthorized(): void
+    {
+        $response = $this->get(route('posts.create'));
+
+        $response->assertRedirect();
+    }
+
 }

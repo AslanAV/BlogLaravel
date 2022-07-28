@@ -4,7 +4,7 @@
 
 @section('content')
 
-    <form method="post" action="{{ route('create-post') }}">
+    <form method="post" action="{{ route('posts.store') }}">
         @csrf
         <div class="mb-3">
             <label for="title" class="form-label">title</label>

@@ -26,9 +26,9 @@
                        aria-current="page" href="{{ route('home') }}">Posts</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link @if(request()->routeIs('create-post-page')) active @endif"
+                    <a class="nav-link @if(request()->routeIs('posts.create')) active @endif"
                        aria-current="page"
-                       href="{{ route('create-post-page') }}">Create Post</a>
+                       href="{{ route('posts.create') }}">Create Post</a>
                 </li>
             </ul>
         </div>
