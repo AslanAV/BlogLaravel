@@ -34,4 +34,11 @@ class AuthController extends Controller
 
         return back();
     }
+
+    public function logout(Request $request): RedirectResponse
+    {
+        $request->session()->forget('auth');
+
+        return back();
+    }
 }

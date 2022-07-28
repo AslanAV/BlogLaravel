@@ -26,12 +26,22 @@
                     <a class="nav-link @if(request()->routeIs('home')) active @endif"
                        aria-current="page" href="{{ route('home') }}">Posts</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link @if(request()->routeIs('posts.create')) active @endif"
-                       aria-current="page"
-                       href="{{ route('posts.create') }}">Create Post</a>
-                </li>
+                @if(session('auth'))
+                    <li class="nav-item">
+                        <a class="nav-link @if(request()->routeIs('posts.create')) active @endif"
+                           aria-current="page"
+                           href="{{ route('posts.create') }}">Create Post</a>
+                    </li>
+                @endif
             </ul>
+            @if(session('auth'))
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit" class="btn btn-danger">Logout</button>
+                </form>
+            @else
+                <a href="{{ route('auth-page') }}" class="btn btn-success">Login</a>
+            @endif
         </div>
     </div>
 </nav>
